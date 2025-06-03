@@ -53,7 +53,7 @@ fitness_project/
 │ │ ├── nutrition.py  
 │ │ ├── training.py  
 │ │ └── photo.py  
-│ ├── views.py  
+│ ├── views/
 │ ├── urls.py  
 │ ├── templates/  
 │ │ └── tracker/  
@@ -75,4 +75,12 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
+```
+
+Również ważne jest aby w root settings.py ustawic linijke NPM_BIN_PATH tak aby wskazywala na npm
+
+Przykład
+
+```bash
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 ```

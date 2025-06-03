@@ -1,0 +1,18 @@
+{% load static %} 
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    {% tailwind_css %}
+    <meta charset="UTF-8" />
+    <title>{% block title %}Fitness Tracker{% endblock %}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <header class="p-4 bg-blue-600 text-white">
+      <h1 class="text-3xl font-bold">Fitness Tracker</h1>
+    </header>
+
+    <main class="p-4">{% block content %}{% endblock %}</main>
+  </body>
+</html>
