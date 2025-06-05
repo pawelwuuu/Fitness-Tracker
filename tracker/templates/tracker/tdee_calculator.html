@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Kalkulator TDEE{% endblock %}
+
+{% block content %}
+<h1>Kalkulator TDEE</h1>
+<p>Oblicz swoje całkowite dzienne zapotrzebowanie kaloryczne (Total Daily Energy Expenditure)</p>
+
+<form id="tdeeForm">
+    {% csrf_token %}
+    <div>
+        <label for="bmr">Twoje BMR (kcal/dzień):</label>
+        <input type="number" step="1" id="bmr" name="bmr" required>
+    </div>
+    
+    <div>
+        <label for="activity_level">Poziom aktywności:</label>
+        <select id="activity_level" name="activity_level" required>
+            <option value="sedentary">Siedzący tryb życia (mało lub brak ćwiczeń)</option>
+            <option value="light">Lekka aktywność (lekki trening 1-3 dni w tygodniu)</option>
+            <option value="moderate">Umiarkowana aktywność (trening 3-5 dni w tygodniu)</option>
+            <option value="active">Duża aktywność (intensywny trening 6-7 dni w tygodniu)</option>
+            <option value="very_active">Bardzo duża aktywność (ciężki trening i praca fizyczna)</option>
+        </select>
+    </div>
+    
+    <button type="submit">Oblicz TDEE</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    document.getElementById('tdeeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        fetch(window.location.pathname, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('result');
+            if (data.status === 'success') {
+                resultDiv.innerHTML = `<h3>Twoje TDEE: ${data.result} kcal/dzień</h3>`;
+            } else {
+                resultDiv.innerHTML = `<p>Błąd: ${data.message}</p>`;
+            }
+        });
+    });
+</script>
+{% endblock %}

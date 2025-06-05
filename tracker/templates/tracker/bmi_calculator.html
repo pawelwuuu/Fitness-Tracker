@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Kalkulator BMI{% endblock %}
+
+{% block content %}
+<h1>Kalkulator BMI</h1>
+<p>Oblicz swój wskaźnik masy ciała (Body Mass Index)</p>
+
+<form id="bmiForm">
+    {% csrf_token %}
+    <div>
+        <label for="weight">Waga (kg):</label>
+        <input type="number" step="0.1" id="weight" name="weight" required>
+    </div>
+    
+    <div>
+        <label for="height">Wzrost (cm):</label>
+        <input type="number" step="0.1" id="height" name="height" required>
+    </div>
+    
+    <button type="submit">Oblicz BMI</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    document.getElementById('bmiForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        fetch(window.location.pathname, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('result');
+            if (data.status === 'success') {
+                resultDiv.innerHTML = `
+                    <h3>Twój wynik:</h3>
+                    <p>BMI: ${data.result}</p>
+                    <p>Interpretacja: ${data.interpretation}</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `<p>Błąd: ${data.message}</p>`;
+            }
+        });
+    });
+</script>
+{% endblock %}

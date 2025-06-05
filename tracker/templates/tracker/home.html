@@ -1,5 +1,69 @@
 {% extends 'base.html' %}
-{% block title %}BMI Calculator{% endblock %}
+{% block title %}Strona główna{% endblock %}
+
 {% block content %}
-Witaj na naszej stronie
+<div class="container">
+    <h1>Witaj w naszej aplikacji zdrowotnej!</h1>
+    <p>Wybierz kalkulator, którego potrzebujesz:</p>
+    
+    <div class="row">
+        <!-- Kalkulator BMI -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kalkulator BMI</h5>
+                    <p class="card-text">Oblicz swój wskaźnik masy ciała (Body Mass Index).</p>
+                    <a href="{% url 'bmi_calculator' %}" class="btn btn-primary">
+                        Przejdź do kalkulatora
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kalkulator BMR -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kalkulator BMR</h5>
+                    <p class="card-text">Oblicz swoją podstawową przemianę materii (Basal Metabolic Rate).</p>
+                    <a href="{% url 'bmr_calculator' %}" class="btn btn-primary">
+                        Przejdź do kalkulatora
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kalkulator TDEE -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kalkulator TDEE</h5>
+                    <p class="card-text">Oblicz swoje całkowite dzienne zapotrzebowanie kaloryczne (Total Daily Energy Expenditure).</p>
+                    <a href="{% url 'tdee_calculator' %}" class="btn btn-primary">
+                        Przejdź do kalkulatora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        height: 100%;
+        transition: transform 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+    .btn {
+        margin-top: auto;
+        align-self: flex-start;
+    }
+</style>
 {% endblock %}

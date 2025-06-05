@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Kalkulator BMR{% endblock %}
+
+{% block content %}
+<h1>Kalkulator BMR</h1>
+<p>Oblicz swoją podstawową przemianę materii (Basal Metabolic Rate)</p>
+
+<form id="bmrForm">
+    {% csrf_token %}
+    <div>
+        <label for="weight">Waga (kg):</label>
+        <input type="number" step="0.1" id="weight" name="weight" required>
+    </div>
+    
+    <div>
+        <label for="height">Wzrost (cm):</label>
+        <input type="number" step="0.1" id="height" name="height" required>
+    </div>
+    
+    <div>
+        <label for="age">Wiek:</label>
+        <input type="number" id="age" name="age" required>
+    </div>
+    
+    <div>
+        <label>Płeć:</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Mężczyzna</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Kobieta</label>
+    </div>
+    
+    <button type="submit">Oblicz BMR</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    document.getElementById('bmrForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        fetch(window.location.pathname, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('result');
+            if (data.status === 'success') {
+                resultDiv.innerHTML = `<h3>Twój BMR: ${data.result} kcal/dzień</h3>`;
+            } else {
+                resultDiv.innerHTML = `<p>Błąd: ${data.message}</p>`;
+            }
+        });
+    });
+</script>
+{% endblock %}
