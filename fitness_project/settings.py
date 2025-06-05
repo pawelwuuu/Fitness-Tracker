@@ -135,3 +135,8 @@ STATICFILES_DIRS = [BASE_DIR / 'tracker' / 'static']
 #tailwind
 TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+
+# logout/login
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
