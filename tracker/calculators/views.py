@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from tracker.models.exercise_tips import ExerciseTip
+from .models import ExerciseTip
 import random
 
 def home_view(request):

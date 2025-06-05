@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import ExerciseTip
 
-# Register your models here.
+@admin.register(ExerciseTip)
+class ExerciseTipAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'is_active')
+    list_filter = ('category', 'is_active')
+    search_fields = ('title', 'content')
