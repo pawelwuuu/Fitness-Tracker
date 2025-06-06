@@ -1,0 +1,8 @@
+<form hx-post="{% url 'compare_photos' %}" hx-target="#comparison-container" hx-swap="innerHTML">
+  {% for id in photo_ids %}
+    <input type="hidden" name="photo_ids" value="{{ id }}">
+  {% endfor %}
+  <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+    Porównaj zaznaczone zdjęcia
+  </button>
+</form>

@@ -11,14 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
 </head>
-<body class="bg-gray-50 font-sans antialiased">
+<body class="bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="{% static 'images/logo.png' %}" alt="FitnessPP Logo" class="h-8 mr-3">
                     <a href="{% url 'home' %}" class="text-xl font-bold text-gray-800">
                         Fitness<span class="text-blue-600">PP</span>
                     </a>
@@ -27,7 +26,7 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="{% url 'home' %}" class="text-gray-600 hover:text-blue-600 font-medium transition">Strona główna</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Kalkulatory</a>
+                    <a href="/#calcs" class="text-gray-600 hover:text-blue-600 font-medium transition">Kalkulatory</a>
                     <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Statystyki</a>
                     <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition">Porady</a>
                 </nav>
@@ -56,7 +55,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow pb-15 pt-5">
+    <main class="flex-grow">
         {% block content %}{% endblock %}
     </main>
 
@@ -72,8 +71,8 @@
                     <h4 class="font-bold mb-4">Nawigacja</h4>
                     <ul class="space-y-2">
                         <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-white transition">Strona główna</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Kalkulatory</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Statystyki</a></li>
+                        <li><a href="#calcs" class="text-gray-400 hover:text-white transition">Kalkulatory</a></li>
+                        <li><a href="{% url 'photo_gallery' %}" class="text-gray-400 hover:text-white transition">Galeria zdjęć</a></li>
                     </ul>
                 </div>
                 <div>
@@ -82,6 +81,7 @@
                         <li><a href="{% url 'bmi_calculator' %}" class="text-gray-400 hover:text-white transition">Kalkulator BMI</a></li>
                         <li><a href="{% url 'bmr_calculator' %}" class="text-gray-400 hover:text-white transition">Kalkulator BMR</a></li>
                         <li><a href="{% url 'tdee_calculator' %}" class="text-gray-400 hover:text-white transition">Kalkulator TDEE</a></li>
+                        <li><a href="{% url 'photo_upload' %}" class="text-gray-400 hover:text-white transition">Dodaj zdjęcie</a></li>
                     </ul>
                 </div>
                 <div>

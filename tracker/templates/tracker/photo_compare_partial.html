@@ -1,0 +1,13 @@
+{% if selected_photos|length == 2 %}
+  <div class="compare-container flex gap-4 border p-4 rounded bg-gray-50 shadow">
+    {% for photo in selected_photos %}
+      <div class="flex-1 text-center">
+        <img src="{{ photo.photo.url }}" alt="Zdjęcie do porównania" class="mx-auto w-48 h-48 object-cover rounded">
+        <p>Waga: {{ photo.weight|default:"brak" }} kg</p>
+        <p>Data: {{ photo.date_added|date:"Y-m-d H:i" }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-gray-500">Zaznacz dwa zdjęcia powyżej, aby je porównać.</p>
+{% endif %}
