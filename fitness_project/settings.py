@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'tracker',
     'tailwind',
     'theme',
+    'widget_tweaks',
     'django_browser_reload'
 ]
 

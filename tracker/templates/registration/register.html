@@ -1,5 +1,90 @@
-<h2>Rejestracja</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Zarejestruj</button>
-</form>
+{% load static tailwind_tags widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  {% tailwind_css %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rejestracja - FitnessPP</title>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="max-w-4xl w-full bg-white p-10 rounded-xl shadow-md mt-10">
+    <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">Rejestracja</h2>
+    {% if form.non_field_errors %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" role="alert">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          {{ form.username.label_tag }}
+          {{ form.username|default_if_none:"" }}
+          {% for error in form.username.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.email.label_tag }}
+          {{ form.email|default_if_none:"" }}
+          {% for error in form.email.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.password1.label_tag }}
+          {{ form.password1|default_if_none:"" }}
+          {% for error in form.password1.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.password2.label_tag }}
+          {{ form.password2|default_if_none:"" }}
+          {% for error in form.password2.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.height_cm.label_tag }}
+          {{ form.height_cm|default_if_none:"" }}
+          {% for error in form.height_cm.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.birth_date.label_tag }}
+          {{ form.birth_date|default_if_none:"" }}
+          {% for error in form.birth_date.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="md:col-span-2">
+          {{ form.gender.label_tag }}
+          {{ form.gender|default_if_none:"" }}
+          {% for error in form.gender.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-md transition"
+      >
+        Zarejestruj się
+      </button>
+    </form>
+  </div>
+</body>
+</html>

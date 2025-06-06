@@ -1,7 +1,55 @@
-<h2>Zaloguj się</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Zaloguj</button>
-</form>
+{% load static tailwind_tags %}
+{% load form_tags %}
 
-<a href="{% url 'password_reset' %}">Nie pamiętasz hasła?</a>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    {% tailwind_css %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zaloguj się - FitnessPP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white shadow-lg rounded-xl max-w-md w-full p-8">
+
+    <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">Zaloguj się</h2>
+
+    {% if messages %}
+      <div class="mb-6">
+        {% for message in messages %}
+          <div class="text-red-600 bg-red-100 border border-red-400 rounded-md px-4 py-3 mb-2" role="alert">
+            <i class="fas fa-exclamation-circle mr-2"></i> {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" class="space-y-6" novalidate>
+      {% csrf_token %}
+
+      {% for field in form %}
+        <div>
+          <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+          {{ field|add_class:"w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" }}
+          {% if field.errors %}
+            <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-md transition">
+        Zaloguj się
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      <a href="{% url 'password_reset' %}" class="text-blue-600 hover:underline">
+        Nie pamiętasz hasła?
+      </a>
+    </p>
+
+  </div>
+</body>
+</html>

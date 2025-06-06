@@ -1,7 +1,11 @@
+from django.core.management.base import BaseCommand
 from tracker.models.exercise_tips import ExerciseTip
 
-def populate_tips():
-    tips = [
+class Command(BaseCommand):
+    help = 'Add tips to database'
+
+    def handle(self, *args, **kwargs):
+        tips = [
         {
             'title': 'Prawidłowa technika przysiadów',
             'content': 'Utrzymuj plecy proste, stopy na szerokość barków, kolana nie powinny wychodzić przed palce stóp.',
@@ -51,23 +55,20 @@ def populate_tips():
             'title': 'Technika pompek',
             'content': 'Utrzymuj ciało w linii prostej, łokcie pod kątem 45 stopni do tułowia.',
             'category': 'STRENGTH'
-        }
-    ]
+        }]
 
-    created_count = 0
-    for tip in tips:
-        _, created = ExerciseTip.objects.get_or_create(
-            title=tip['title'],
-            defaults={
-                'content': tip['content'],
-                'category': tip['category'],
-                'is_active': True
-            }
-        )
-        if created:
-            created_count += 1
+        created_count = 0
+        for tip in tips:
+            _, created = ExerciseTip.objects.get_or_create(
+                title=tip['title'],
+                defaults={
+                    'content': tip['content'],
+                    'category': tip['category'],
+                    'is_active': True
+                }
+            )
+            if created:
+                created_count += 1
 
-    return f"Dodano {created_count} nowych porad. Łącznie w bazie: {ExerciseTip.objects.count()} porad."
-
-if __name__ == '__main__':
-    print(populate_tips())
+        total = ExerciseTip.objects.count()
+        self.stdout.write(self.style.SUCCESS(f"Dodano {created_count} nowych porad. Łącznie: {total} porad."))
