@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Porady fitness | FitnessPP{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Porady Fitness</h1>
+    
+    <!-- Filtrowanie po kategoriach -->
+    <div class="mb-8">
+        <h2 class="text-lg font-semibold text-gray-700 mb-2">Filtruj porady:</h2>
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'tips' %}" 
+               class="px-4 py-2 rounded-full text-sm font-medium 
+                      {% if not selected_category %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+                Wszystkie
+            </a>
+            {% for category in categories %}
+                <a href="{% url 'tips' %}?category={{ category }}" 
+                   class="px-4 py-2 rounded-full text-sm font-medium 
+                          {% if selected_category == category %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+                    {{ category }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Lista porad -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {% for tip in page_obj %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ tip.title }}</h2>
+                <p class="text-gray-600 mb-4">{{ tip.content }}</p>
+                {% if tip.category %}
+                <div class="text-sm text-gray-500">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{{ tip.category }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <p class="text-gray-500">Brak dostępnych porad dla wybranych filtrów.</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Paginacja -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="flex justify-center mt-8">
+        <nav class="inline-flex rounded-md shadow">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" 
+                   class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    &laquo; Poprzednia
+                </a>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span class="px-3 py-2 border-t border-b border-gray-300 bg-blue-600 text-white text-sm font-medium">
+                        {{ num }}
+                    </span>
+                {% else %}
+                    <a href="?page={{ num }}{% if selected_category %}&category={{ selected_category }}{% endif %}" 
+                       class="px-3 py-2 border-t border-b border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        {{ num }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" 
+                   class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Następna &raquo;
+                </a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
