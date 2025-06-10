@@ -76,6 +76,12 @@ python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
+## 🔧 Użytkownik testowy oraz tipy
+Login: testuser Hasło: Test1234
+```
+python manage.py add_test_user
+python manage.py populate_tips
+```
 
 Również ważne jest aby w root settings.py ustawic linijke NPM_BIN_PATH tak aby wskazywala na npm
 
