@@ -66,7 +66,7 @@ fitness_project/
 ---
 
 ## 🔧 Szybki start
-
+Uwaga aby tailwind działał musi być ustawiona sciezka do npm, instrukacja na dole readme
 ```bash
 git clone ...
 cd fitness_tracker
@@ -74,6 +74,8 @@ cd fitness_tracker
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
+python manage.py tailwind install
+python manage.py tailwind start
 python manage.py runserver
 ```
 ## 🔧 Użytkownik testowy oraz tipy
