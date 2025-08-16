@@ -1,17 +1,17 @@
 # 🏋️‍♂️ Fitness Tracker - Django + HTMX
 
-**Fitness Tracker** to aplikacja webowa do monitorowania zdrowia i progresu treningowego. Pozwala użytkownikom na:
+**Fitness Tracker** is a web application for monitoring health and training progress. It allows users to:
 
-- obliczanie BMI, BMR i innych wskaźników,
-- prowadzenie dziennika wagi,
-- otrzymywanie zindywidualizowanych zaleceń dietetycznych i treningowych,
-- przeglądanie porad i edukatorów,
-- porównywanie zdjęć „przed i po”,
-- korzystanie z gotowych planów treningowych.
+- calculate BMI, BMR, and other indicators,
+- keep a weight log,
+- receive personalized dietary and training recommendations,
+- browse guides and educational content,
+- compare "before and after" photos,
+- use ready-made workout plans.
 
 ---
 
-## ⚙️ Stack technologiczny
+## ⚙️ Tech Stack
 
 ### Backend:
 
@@ -23,50 +23,54 @@
 
 ### Frontend:
 
-- HTMX – dynamiczne UI bez frameworków JS
-- Tailwind CSS (opcjonalnie)
-- Alpine.js (opcjonalnie dla prostych interakcji)
+- HTMX – dynamic UI without JS frameworks
+- Tailwind CSS (optional)
+- Alpine.js (optional for simple interactions)
 
-### Inne:
+### Others:
 
-- Pillow – do obsługi zdjęć
-- Django Forms i Form Validation
+- Pillow – for image handling
+- Django Forms and Form Validation
 - Responsive Design
 
 ---
 
-## 📁 Struktura projektu
+## 📁 Project Structure
 
-fitness_project/  
-├── manage.py  
-├── fitness_project/  
-│ ├── **init**.py  
-│ ├── settings.py  
-│ ├── urls.py  
-│ └── wsgi.py  
-├── tracker/  
-│ ├── migrations/  
-│ ├── models/  
-│ │ ├── **init**.py  
-│ │ ├── user.py  
-│ │ ├── weight.py  
-│ │ ├── nutrition.py  
-│ │ ├── training.py  
-│ │ └── photo.py  
-│ ├── views/
-│ ├── urls.py  
-│ ├── templates/  
-│ │ └── tracker/  
-│ │ ├── base.html  
-│ │ └── ...  
-│ ├── static/  
-│ ├── forms.py  
-│ └── admin.py
+```
+fitness_project/
+├── manage.py
+├── fitness_project/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── tracker/
+│   ├── migrations/
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── weight.py
+│   │   ├── nutrition.py
+│   │   ├── training.py
+│   │   └── photo.py
+│   ├── views/
+│   ├── urls.py
+│   ├── templates/
+│   │   └── tracker/
+│   │       ├── base.html
+│   │       └── ...
+│   ├── static/
+│   ├── forms.py
+│   └── admin.py
+```
 
 ---
 
-## 🔧 Szybki start
-Uwaga aby tailwind działał musi być ustawiona sciezka do npm, instrukacja na dole readme
+## 🔧 Quick Start
+
+⚠️ Note: for Tailwind to work you need to set the path to `npm`. See the bottom of this README.
+
 ```bash
 git clone ...
 cd fitness_tracker
@@ -78,16 +82,20 @@ python manage.py tailwind install
 python manage.py tailwind start
 python manage.py runserver
 ```
-## 🔧 Użytkownik testowy oraz tipy
-Login: testuser Hasło: Test1234
-```
+
+## 🔧 Test User and Tips
+
+Login: `testuser`  
+Password: `Test1234`
+
+```bash
 python manage.py add_test_user
 python manage.py populate_tips
 ```
 
-Również ważne jest aby w root settings.py ustawic linijke NPM_BIN_PATH tak aby wskazywala na npm
+It is also important to set the `NPM_BIN_PATH` in the root `settings.py` to point to your npm executable.
 
-Przykład
+Example:
 
 ```bash
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
